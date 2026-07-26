@@ -34,6 +34,8 @@ namespace Archipelago_Inscryption.Archipelago
         AllActsInOrder,
         AllActsAnyOrder,
         Act1Only,
+        Act2Only,
+        Act3Only,
         COUNT
     }
 

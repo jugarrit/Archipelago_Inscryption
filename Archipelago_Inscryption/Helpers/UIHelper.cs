@@ -99,6 +99,27 @@ namespace Archipelago_Inscryption.Helpers
             Singleton<VideoCameraRig>.Instance.EnterChapterSelect();
         }
 
+        // For Act2Only/Act3Only, the player never gets a chapter select screen (same as Act1Only),
+        // so a brand new save needs to be pointed at Act 2/Act 3's starting scene instead of the
+        // vanilla default (Part1_Cabin) before the player ever presses the main menu's Continue card.
+        // Only runs once: currentScene stops being "Part1_Cabin" as soon as it's redirected, so this
+        // is a no-op on every subsequent connect/reconnect.
+        internal static void PrepareActOnlyGoalStartingScene()
+        {
+            if (SaveManager.SaveFile.currentScene != "Part1_Cabin")
+                return;
+
+            if (ArchipelagoOptions.goal == Goal.Act2Only)
+            {
+                ScriptableObjectLoader<CardInfo>.AllData.Find(x => x.name == "Hrokkall").temple = CardTemple.Nature;
+                SaveManager.SaveFile.currentScene = "GBC_Intro";
+            }
+            else if (ArchipelagoOptions.goal == Goal.Act3Only)
+            {
+                SaveManager.SaveFile.currentScene = "Part3_Cabin";
+            }
+        }
+
         internal static void UpdateChapterButtons()
         {
             ChapterSelectMenu menu = Singleton<VideoCameraRig>.Instance.chapterSelectMenu;
