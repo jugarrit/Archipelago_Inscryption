@@ -376,6 +376,8 @@ namespace Archipelago_Inscryption.Archipelago
             ArchipelagoData.Data.goalType = ArchipelagoOptions.goal;
             ArchipelagoData.Data.skipEpilogue = ArchipelagoOptions.skipEpilogue;
 
+            UIHelper.PrepareActOnlyGoalStartingScene();
+
             DeathLinkManager.DeathLinkService = ArchipelagoClient.session.CreateDeathLinkService();
             DeathLinkManager.Init();
 
@@ -542,6 +544,14 @@ namespace Archipelago_Inscryption.Archipelago
                 ArchipelagoClient.SendGoalCompleted();
             }
             else if (ArchipelagoOptions.goal == Goal.Act1Only && ArchipelagoData.Data.act1Completed)
+            {
+                ArchipelagoClient.SendGoalCompleted();
+            }
+            else if (ArchipelagoOptions.goal == Goal.Act2Only && ArchipelagoData.Data.act2Completed)
+            {
+                ArchipelagoClient.SendGoalCompleted();
+            }
+            else if (ArchipelagoOptions.goal == Goal.Act3Only && ArchipelagoData.Data.act3Completed)
             {
                 ArchipelagoClient.SendGoalCompleted();
             }

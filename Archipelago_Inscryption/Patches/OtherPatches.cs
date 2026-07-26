@@ -197,6 +197,21 @@ namespace Archipelago_Inscryption.Patches
             }
         }
 
+        [HarmonyPatch(typeof(SceneLoader), "StartAsyncLoad")]
+        [HarmonyPrefix]
+        static bool StopAct2OnlyGoalFromEnteringAct3(string sceneName)
+        {
+            // The Act 2 finale sequence unconditionally loads Part3_Cabin when it ends.
+            // For the Act2Only goal, the player's goal already completed, so send them
+            // back to the main menu instead of continuing on into Act 3.
+            if (sceneName != "Part3_Cabin" || ArchipelagoOptions.goal != Goal.Act2Only) return true;
+
+            StartScreenController.startedGame = true;
+            MenuController.ReturnToStartScreen();
+
+            return false;
+        }
+
         [HarmonyPatch(typeof(PedestalVolume), "Start")]
         [HarmonyPostfix]
         static void ChangePedestalCode(PedestalVolume __instance)

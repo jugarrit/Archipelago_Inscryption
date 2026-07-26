@@ -1,3 +1,7 @@
+### 1.1.0
+ - Added support for two new "Goal" options: "Act 2 only" and "Act 3 only". Like "Act 1 only", the player starts directly in the given act and completing it sends the goal completion to the server.
+ - With "Act 2 only" selected, finishing act 2 no longer continues on into act 3; it returns to the main menu instead.
+
 ### 1.0.3
  - Fixed client version string forcing the use of a discontinued client version.
 
